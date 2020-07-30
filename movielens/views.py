@@ -53,8 +53,7 @@ def delete_rating(request):
 @csrf_exempt
 def update_rating(request):
     if request.method == 'POST':
-        r = Ratings(user_id=request.POST['user_id'], \
-                    movie_id=request.POST['movie_id'])
-        r.rating = request.POST['rating']
-        r.save()
+        r = Ratings.objects.filter(user_id=request.POST['user_id'], \
+                                    movie_id=request.POST['movie_id'])
+        r.update(rating = request.POST['rating'])
         return HttpResponse('update success')
