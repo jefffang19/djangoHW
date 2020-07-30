@@ -41,3 +41,12 @@ def delete_rating(request):
                                     rating=request.POST['rating'])
         r.delete()
         return HttpResponse()
+
+@csrf_exempt
+def update_rating(request):
+    if request.method == 'POST':
+        r = Ratings(user_id=request.POST['user_id'], \
+                    movie_id=request.POST['movie_id'])
+        r.rating = request.POST['rating']
+        r.save()
+        return HttpResponse()
