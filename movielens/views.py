@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 # Create your views here.
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from movielens.models import Movies, Ratings
 
@@ -13,14 +13,22 @@ def search_user(request):
         #.get() only return 1 data
         #use .filter() instead
         r = Ratings.objects.filter(user_id=request.GET['user_id'])
+
+        returnlist = []
+        for i in r:
+            d = { 'user_id' : i.user_id, 'movie_id' : i.movie_id, 'rating' : i.rating }
+            returnlist.append(d)
         
-        return HttpResponse(r)
+        returndict = {'rating_list' : returnlist}
+        return JsonResponse(returndict)
 
 def search_movie(request):
     if request.method == 'GET':
         r = Movies.objects.get(pk=request.GET['movie_id'])
 
-        return HttpResponse(r)
+        d = {'movie_id' : r.movie_id, 'title' : r.title, 'genres' : r.genres}
+
+        return JsonResponse(d)
 
 
 #csrf protection exception
@@ -31,7 +39,7 @@ def insert_rating(request):
                                     movie_id=request.POST['movie_id'], \
                                     rating=request.POST['rating'])
         r.save()
-        return HttpResponse()
+        return HttpResponse('insert success')
 
 @csrf_exempt
 def delete_rating(request):
@@ -40,7 +48,7 @@ def delete_rating(request):
                                     movie_id=request.POST['movie_id'], \
                                     rating=request.POST['rating'])
         r.delete()
-        return HttpResponse()
+        return HttpResponse('delete success')
 
 @csrf_exempt
 def update_rating(request):
@@ -49,4 +57,4 @@ def update_rating(request):
                     movie_id=request.POST['movie_id'])
         r.rating = request.POST['rating']
         r.save()
-        return HttpResponse()
+        return HttpResponse('update success')
