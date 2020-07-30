@@ -1,6 +1,6 @@
 # IIR Lab 2019 training : Django Homework<br>
 
-**Finish Steps:**<br>
+**Finished Steps:**<br>
 >1. 輸入使用者id，回傳他評分過的所有電影id(Read)(10pt)<br>
 >2. 輸入使用者id/他想評分的電影id/給他幾分，在資料庫新增一筆評分資料(Create)(10pt)<br>
 >3. 刪除某位使用者的某筆評分資料(Delete)(10pt)<br>
