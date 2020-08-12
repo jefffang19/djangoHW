@@ -1,4 +1,4 @@
-# IIR Lab 2019 training : Django Homework<br>
+# IIR Lab 2020 training : Django Homework<br>
 
 **Finished Steps:**<br>
 >1. 輸入使用者id，回傳他評分過的所有電影id(Read)(10pt)<br>
